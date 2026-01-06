@@ -1,0 +1,32 @@
+# 插件前缀
+prefix: '&6[打铁]&r '
+# 权限不足提示
+no_permission: '&c你没有权限'
+# 仅玩家可用提示
+only_player: '&c仅玩家可用'
+# 属性创建成功提示
+attr_created: '&a已创建属性: {name}'
+# 属性映射创建成功提示
+attr_mapped: '&a已创建属性映射: {src} -> {dst} x{percent}%'
+# 模板创建成功提示
+template_created: '&a已创建模板: {name}'
+# 模板编辑打开提示
+template_edit_open: '&a已打开模板编辑: {name}'
+# 材料编辑打开提示
+material_edit_open: '&a已打开材料编辑'
+# 保存成功提示
+saved: '&a已保存'
+# 学习模板成功提示
+learned_template: '&a已学习模板: {name}'
+# 武器配方创建成功提示
+recipe_created: '&a已创建武器配方: {name}'
+# 配件属性设置成功提示
+recipe_attr_set: '&a已设置配件属性生效: {attr} {percent}%'
+# 未找到玩家提示
+player_not_found: '&c未找到玩家'
+# 未知子命令提示
+unknown_subcommand: '&c未知子命令'
+# 参数错误提示
+invalid_args: '&c参数错误'
+# 物品保存成功提示
+qd_saved: '&a已保存当前物品'

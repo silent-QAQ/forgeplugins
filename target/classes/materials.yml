@@ -1,0 +1,9 @@
+materials:
+  测试铁锭:
+    melting_point: 60.0
+    extensibility: 3.0
+    stability_min: 10.0
+    stability_max: 20.0
+    attrs:
+      攻击力: 5.0
+      暴击率: 2.0

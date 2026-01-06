@@ -1,0 +1,14 @@
+templates:
+  测试剑的模板:
+    icon: DIAMOND_SWORD
+    output_material: DIAMOND_SWORD
+    slots:
+    - 2
+    - 3
+    - 4
+    - 11
+    - 12
+    - 13
+    - 20
+    - 21
+    - 22

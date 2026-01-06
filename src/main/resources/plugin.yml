@@ -1,0 +1,30 @@
+name: forge
+main: com.forge.ForgePlugin
+version: 0.1.0
+api-version: 1.20
+authors:
+  - TraeAI
+description: 打铁锻造插件
+softdepend:
+  - PlaceholderAPI
+  - SX-Attribute
+  - AttributePlus
+  - AP
+  - APS
+commands:
+  dt:
+    description: 打铁主命令
+    usage: /dt
+    aliases: [forge, datie]
+  qd:
+    description: 快捷保存上下文物品
+    usage: /qd
+  gems:
+    description: 打开宝石镶嵌界面
+    usage: /gems
+    aliases: [gem, socket]
+permissions:
+  forge.admin:
+    default: op
+  forge.player:
+    default: true

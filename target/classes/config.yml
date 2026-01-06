@@ -1,0 +1,238 @@
+# 语言设置
+locale: zh
+
+# 数据库配置
+database:
+  # 类型: sqlite 或 mysql
+  type: sqlite
+  sqlite:
+    # SQLite 文件路径
+    file: plugins/forge/data.db
+  mysql:
+    host: 127.0.0.1
+    port: 3306
+    database: forge
+    user: root
+    password: ''
+
+# 材料属性默认值
+materials:
+  defaults:
+    # 熔点 (影响指针在材料槽位的移动速度, 值越大越慢)
+    melting_point: 240
+    # 延展性 (需要梳理的纹路数量)
+    extensibility: 0
+    # 最小稳定度
+    stability_min: 5
+    # 最大稳定度
+    stability_max: 5
+
+# 锻造系数设置
+forging:
+  # 梳理成功奖励系数 (每成功梳理一个纹路增加的属性百分比, 0.1 = 10%)
+  comb_success_bonus: 0.1
+  # 梳理错误惩罚系数 (每错误梳理一个纹路减少的属性百分比, 0.1 = 10%)
+  comb_error_penalty: 0.1
+
+# GUI 设置
+gui:
+  titles:
+    template_select: '模板选择'
+    template_edit: '模板编辑'
+    material_edit: '材料属性编辑'
+    forging: '锻造'
+    result: '锻造成品'
+  
+  # 界面布局配置
+  layouts:
+    # 模板编辑界面 (90格: 0-53 Top, 54-89 Player Inv)
+    template_edit:
+      title: "模板编辑 {name}"
+      size: 54
+      layout:
+        # Top Inventory (0-53)
+        - "XXXXXXXXX"
+        - "XXXXXXXXX"
+        - "XXXXXXXXX"
+        - "XXXXXXXXX"
+        - "XXXXXXXXX"
+        - "HHHHHHHHH"
+        # Player Inventory (54-80) - 使用 O 表示原版物品显示，使用其他字符覆盖
+        - "OOOOOOOOO"
+        - "OOOOOOOOO"
+        - "OOOOOOOOO"
+        # Hotbar (81-89)
+        - "OMOOOOOOS" 
+        # O=原版, M=成品材质(Slot 1/82), S=保存(Slot 8/89)
+      items:
+        H: # 背景/装饰
+          material: LIGHT_GRAY_STAINED_GLASS_PANE
+          name: "§7必要槽位未选"
+        X: # 编辑区域
+          material: LIGHT_GRAY_STAINED_GLASS_PANE
+          name: "§7必要槽位未选"
+        M: # 成品材质展示位 (覆盖 Hotbar Slot 1)
+          material: AMETHYST_SHARD # 代码中会动态覆盖
+          name: "§e成品材质"
+        S: # 保存按钮 (覆盖 Hotbar Slot 8)
+          material: REDSTONE_BLOCK
+          name: "§c保存退出"
+
+    # 锻造主界面 - 阶段1: 材料摆放 (Placement)
+    forging_placement:
+      title: "锻造 {template}"
+      size: 54
+      layout:
+        - "XXXXXXXXX"
+        - "XXXXXXXXX"
+        - "XXXXXXXXX"
+        - "XXXXXXXXX"
+        - "XXXXXXXXX"
+        - "HHHHHHHHH"
+        # Player Inventory (正常显示，允许拿取材料)
+        - "OOOOOOOOO"
+        - "OOOOOOOOO"
+        - "OOOOOOOOO"
+        # Hotbar (包含开始锻造按钮)
+        - "BBBBKBBBB" # K=开始锻造(85/Slot 4)
+      items:
+        H:
+          material: LIGHT_GRAY_STAINED_GLASS_PANE
+          name: "§7装饰"
+        X: # 锻造放置区域
+          material: AIR
+        K:
+          material: ANVIL
+          name: "§a开始锻造"
+        B: # 边界
+          material: BLACK_STAINED_GLASS_PANE
+          name: "§8边界"
+
+    # 锻造主界面 - 阶段2: 互动游戏 (Game)
+    forging_game:
+      title: "锻造 {template}"
+      size: 54
+      layout:
+        - "XXXXXXXXX"
+        - "XXXXXXXXX"
+        - "XXXXXXXXX"
+        - "XXXXXXXXX"
+        - "XXXXXXXXX"
+        - "HHHHHHHHH"
+        # Player Inventory (梳理游戏区域)
+        - "CCCCCCCCC" 
+        - "CCCCCCCCC"
+        - "CCCCCCCCF" # F=确认固化 (Slot 80 / Inv 35)
+        # Hotbar (U=Empty, X=最佳固化点)
+        - "UUUUXUUUU" 
+      items:
+        H:
+          material: LIGHT_GRAY_STAINED_GLASS_PANE
+          name: "§7装饰"
+        X: 
+          material: LIGHT_GRAY_STAINED_GLASS_PANE # Use Pane instead of AIR for visual
+          name: "§e最佳固化点" # Name it
+        C: # 梳理游戏背景
+          material: LIGHT_GRAY_STAINED_GLASS_PANE
+          name: "§7空白"
+        F:
+          material: ANVIL
+          name: "§a确认固化"
+        U:
+          material: AIR
+          
+    # 材料属性编辑界面
+    material_edit:
+      title: "材料属性编辑"
+      size: 54
+      layout:
+        - "HHHHMHHHH" # M=材料展示(Slot 4)
+        - "AAAAAAAAA" # A=属性列表 (9-17)
+        - "AAAAAAAAA" # (18-26)
+        - "AAAAAAAAA" # (27-35)
+        - "AAAAAAAAA" # (36-44)
+        - "PHHHSHHHN" # P=上一页(45), S=保存(49), N=下一页(53)
+        # Player Inv
+        - "OOOOOOOOO"
+        - "OOOOOOOOO"
+        - "OOOOOOOOO"
+        - "OOOOOOOOO"
+      items:
+        H:
+          material: LIGHT_GRAY_STAINED_GLASS_PANE
+          name: "§7装饰"
+        M: # 材料展示位
+          material: AIR
+        A: # 属性展示
+          material: AIR
+        P:
+          material: ARROW
+          name: "§e上一页"
+        N:
+          material: ARROW
+          name: "§e下一页"
+        S:
+          material: REDSTONE_BLOCK
+          name: "§c保存退出"
+
+sounds:
+  start_forge:
+    name: BLOCK_ANVIL_USE
+    volume: 1.0
+    pitch: 1.0
+  confirm_cure:
+    name: BLOCK_ANVIL_USE
+    volume: 1.0
+    pitch: 1.0
+  pointer_move:
+    name: BLOCK_BELL_USE
+    volume: 0.5
+    pitch: 1.2
+  pointer_on_material:
+    name: BLOCK_AMETHYST_BLOCK_HIT
+    volume: 0.7
+    pitch: 1.0
+  comb_success:
+    name: BLOCK_ENCHANTMENT_TABLE_USE
+    volume: 1.0
+    pitch: 1.0
+  comb_error:
+    name: BLOCK_NOTE_BLOCK_BASS
+    volume: 0.7
+    pitch: 0.5
+  place_material:
+    name: ITEM_ARMOR_EQUIP_CHAIN
+    volume: 0.6
+    pitch: 1.0
+        
+
+    # 锻造成品结果界面
+    result:
+      title: "锻造成品"
+      size: 54
+      layout:
+        - "HHHHHHHHH"
+        - "HHHHRHHHH"
+        - "AAAAAAAAA"
+        - "AAAAAAAAA"
+        - "HHHHHHHHH"
+        - "PHHHHHHHN"
+        # Player Inventory (Restore normal view)
+        - "OOOOOOOOO"
+        - "OOOOOOOOO"
+        - "OOOOOOOOO"
+        - "OOOOOOOOO"
+      items:
+        H:
+          material: BLACK_STAINED_GLASS_PANE
+          name: "§8背景"
+        R: 
+          material: AIR
+        A: 
+          material: AIR
+        P: 
+          material: ARROW
+          name: "§e上一页"
+        N: 
+          material: ARROW
+          name: "§e下一页"
